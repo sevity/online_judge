@@ -1,3 +1,4 @@
+//UserDetails는 스프링에서 정의한 인터페이스이며 이파일은 그 구현체입니다.
 //도메인 모델 클래스인 User와 UserDetails 인터페이스를 구현한 UserDetailsImpl(이파일)은 서로 다른 목적을 가지고 있습니다. 
 //User는 데이터베이스의 users 테이블과 매핑되어 데이터베이스에서 사용자 정보를 조회하는 데 사용되며, 
 //UserDetailsImpl은 Spring Security에서 사용자 인증 정보를 관리하는 데 사용됩니다.

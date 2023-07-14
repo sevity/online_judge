@@ -1,4 +1,4 @@
-package com.sevity.authservice;
+package com.sevity.authservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -17,6 +19,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -33,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin(formLogin -> formLogin
                 .loginPage("/login")
                 .defaultSuccessUrl("/home")
+                .successHandler(authenticationSuccessHandler)  // 성공 핸들러 등록
+                .failureHandler(authenticationFailureHandler)  // 실패 핸들러 등록
                 .permitAll())
             .logout(logout -> logout.permitAll());
     }
