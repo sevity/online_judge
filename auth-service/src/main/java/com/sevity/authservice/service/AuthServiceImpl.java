@@ -3,10 +3,14 @@
 //웹에 접속한 사용자가 userid/password를 서버에 전달하면 db랑 매칭시켜서 등록하거나, 로그인검증하는 역할을 한다.
 package com.sevity.authservice.service;
 
+import com.sevity.authservice.domain.RoleRepository;
 import com.sevity.authservice.domain.User;
 import com.sevity.authservice.domain.UserRepository;
 import com.sevity.authservice.dto.UserRegistrationDto;
 import com.sevity.authservice.exception.UsernameAlreadyExistsException;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,13 +19,14 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
 
     private UserRepository userRepository;
+    private RoleRepository roleRepository; // Add this line
     private PasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository; // Add this line
         this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
     public User register(UserRegistrationDto registrationDto) {
@@ -31,6 +36,7 @@ public class AuthServiceImpl implements AuthService {
         User user = new User();
         user.setUsername(registrationDto.getUsername());
         user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
+        user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName("ROLE_USER"))));
         return userRepository.save(user);
     }
 
