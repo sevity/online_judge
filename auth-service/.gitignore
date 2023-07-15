@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### sevity added these ###
+application.log
+
 ### STS ###
 .apt_generated
 .classpath
