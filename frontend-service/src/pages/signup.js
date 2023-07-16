@@ -1,33 +1,24 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function Login() {
+export default function Signup() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://192.168.0.19:8080/login', `username=${username}&password=${password}`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+      const response = await axios.post('http://192.168.0.19:8080/register', {
+        username,
+        password,
       });
 
-      console.log('Login successful:', response.data);
-      setIsLoggedIn(true);
-      setUserInfo(response.data);
+      console.log('Signup successful:', response.data);
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Signup error:', error);
     }
   };
-
-  if (isLoggedIn) {
-    return <div>Welcome, {userInfo}!</div>;
-  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -47,7 +38,7 @@ export default function Login() {
           onChange={(event) => setPassword(event.target.value)}
         />
       </label>
-      <button type="submit">Login</button>
+      <button type="submit">Sign Up</button>
     </form>
   );
 }
