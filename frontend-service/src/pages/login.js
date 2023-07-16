@@ -1,25 +1,46 @@
-// src/pages/login.js
+import { useState } from 'react';
+import axios from 'axios';
 
-import React from 'react';
+export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-const LoginPage = () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post('http://192.168.0.19:8080/login', `username=${username}&password=${password}`, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      
+
+      console.log('Login successful:', response.data);
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
+
   return (
-    <div>
-      <h1>Login</h1>
-      <form>
-        <label>
-          Username:
-          <input type="text" name="username" />
-        </label>
-        <label>
-          Password:
-          <input type="password" name="password" />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label>
+        Username:
+        <input
+          type="text"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
+      </label>
+      <label>
+        Password:
+        <input
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </label>
+      <button type="submit">Login</button>
+    </form>
   );
-};
-
-export default LoginPage;
-
+}
