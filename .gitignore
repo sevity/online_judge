@@ -1,1 +1,4 @@
 frontend-service/cookies.txt
+auth-service/.env
+.gitignore
+auth-service/.create_table.sql.swp
