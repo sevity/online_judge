@@ -11,8 +11,10 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ./mvnw install -DskipTests  # maven으로 스프링부트프로젝트 빌드(도커아니어도 하는거)
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)  # 필요한디렉토리를 만들고 빌드된 jar 압축해재. 필수는 아니고 최적화전략의 일환
+# maven으로 스프링부트프로젝트 빌드(도커아니어도 하는거)
+RUN ./mvnw install -DskipTests
+# 필요한디렉토리를 만들고 빌드된 jar 압축해재. 필수는 아니고 최적화전략의 일환
+RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 # 멀티스테이지 전략의 두 번째 단계
 # jdk가 아닌 jre만 포함하는 가벼운 이미지로 전환
