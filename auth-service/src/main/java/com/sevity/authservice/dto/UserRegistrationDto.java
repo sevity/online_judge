@@ -15,6 +15,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserRegistrationDto {
+    public UserRegistrationDto() {
+    }
+    
+    public UserRegistrationDto(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    
     private String username;
     private String password;
 }
