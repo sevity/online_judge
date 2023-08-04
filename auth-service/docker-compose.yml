@@ -1,7 +1,7 @@
 version: '3'
 services:
   online-judge-auth-service:
-    image: sevity/online-judge-auth-service:latest-amd64
+    image: auth-service
     ports:
       - "8080:8080"
     environment:  # 아래 환경변수는 .env에 정의하면 연동된다.
