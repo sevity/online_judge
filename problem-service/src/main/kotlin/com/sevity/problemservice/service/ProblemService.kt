@@ -20,6 +20,10 @@ class ProblemService(private val problemRepository: ProblemRepository) {
         )
         return problemRepository.save(updatedProblem)
     }
+    fun deleteProblem(id: Long) {
+        val existingProblem = problemRepository.findById(id).orElseThrow { NoSuchElementException("Problem not found") }
+        problemRepository.delete(existingProblem)
+    }
 
 
 

@@ -2,6 +2,8 @@ package com.sevity.problemservice.controller
 
 import com.sevity.problemservice.domain.Problem
 import com.sevity.problemservice.service.ProblemService
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -20,6 +22,12 @@ class ProblemController(private val problemService: ProblemService) {
 
     @PutMapping("/{id}")
     fun updateProblem(@PathVariable id: Long, @RequestBody problem: Problem): Problem = problemService.updateProblem(id, problem)
+
+    @DeleteMapping("/{id}")
+    fun deleteProblem(@PathVariable id: Long): ResponseEntity<Void> {
+        problemService.deleteProblem(id)
+        return ResponseEntity<Void>(HttpStatus.NO_CONTENT)
+    }
 
     // Add more methods as needed for CRUD operations
 }
