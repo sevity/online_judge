@@ -18,12 +18,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-public class User {
+public class User implements Serializable { // Serializable 인터페이스 구현
+
+    private static final long serialVersionUID = 1L; // serialVersionUID 추가
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

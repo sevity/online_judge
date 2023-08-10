@@ -14,12 +14,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "roles")
 @Getter
 @Setter
-public class Role {
+public class Role implements Serializable { // Serializable 인터페이스 구현
+
+    private static final long serialVersionUID = 1L; // serialVersionUID 추가
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
