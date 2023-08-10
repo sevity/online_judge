@@ -11,7 +11,7 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://192.168.0.20:8080/login', `username=${username}&password=${password}`, {
+      const response = await axios.post('http://sevity.com:9991/login', `username=${username}&password=${password}`, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -30,24 +30,35 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
-          type="text"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </label>
-      <button type="submit">Login</button>
-    </form>
+    <form onSubmit={handleSubmit} className="container mt-4">
+  <div className="mb-3">
+    <label htmlFor="username" className="form-label">
+      Username:
+    </label>
+    <input
+      type="text"
+      className="form-control"
+      id="username"
+      value={username}
+      onChange={(event) => setUsername(event.target.value)}
+    />
+  </div>
+  <div className="mb-3">
+    <label htmlFor="password" className="form-label">
+      Password:
+    </label>
+    <input
+      type="password"
+      className="form-control"
+      id="password"
+      value={password}
+      onChange={(event) => setPassword(event.target.value)}
+    />
+  </div>
+  <button type="submit" className="btn btn-primary">
+    Login
+  </button>
+</form>
+
   );
 }
