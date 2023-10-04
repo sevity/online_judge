@@ -15,6 +15,6 @@ online_judge/auth-service/docker_run.sh 9991
 http://localhost:8081
 
 ## supervisor
-conf files: /etc/supervisor/conf.d/
-log files: /var/log/supervisor
+* conf files: /etc/supervisor/conf.d/
+* log files: /var/log/supervisor
 
