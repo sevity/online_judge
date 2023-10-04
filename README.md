@@ -10,8 +10,11 @@ online_judge/auth-service/docker_run.sh 9991
 
 ## 2. frontend-service
 
-## related environment
-### airflow
+# related environment
+## airflow
 http://localhost:8081
 
+## supervisor
+conf files: /etc/supervisor/conf.d/
+log files: /var/log/supervisor
 
