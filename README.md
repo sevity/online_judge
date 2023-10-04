@@ -5,7 +5,7 @@ spring boot로 만드는 online_judge 사이트
 url: http://localhost:9991
 ### build cmd
 ```bash
-online_judge/auth-service && ./build.sh && docker build -t auth-service .
+cd online_judge/auth-service/ && ./build.sh && docker build -t auth-service .
 ```
 ### run cmd
 ```bash
