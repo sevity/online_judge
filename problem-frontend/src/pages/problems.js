@@ -3,8 +3,18 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Problems() {
   const [problems, setProblems] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
+    const storedUserInfo = localStorage.getItem('userInfo');
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if (storedUserInfo && storedIsLoggedIn === 'true') {
+      setIsLoggedIn(true);
+      setUserInfo(JSON.parse(storedUserInfo));
+    }
+
     const fetchData = async () => {
       try {
         const response = await fetch('http://sevity.com:9993/problems');
@@ -18,9 +28,17 @@ export default function Problems() {
     fetchData();
   }, []);
 
+  if (!isLoggedIn) {
+    return (
+      <div>
+        로그인 필요!
+      </div>
+    );
+  }
+
   return (
     <div className="container">
-      <h1>문제 리스트</h1>
+      <h1>문제 리스트!</h1>
       <table className="table">
         <thead>
           <tr>
