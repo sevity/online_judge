@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+/*    
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -49,17 +49,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+*/
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://sevity.com:9992"));  // 이 라인이 필요했고 *로 하면 브라우저에서 거부함
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .cors().and()   // CORS 설정 적용
-            .csrf().disable()
+            .cors().configurationSource(corsConfigurationSource())
+            //.cors()
+            .and()
+            .csrf().disable()  // CSRF (Cross-Site Request Forgery, 크로스 사이트 요청 위조) 보호 기능을 비활성화
             .authorizeRequests()
                 .antMatchers("/register", "/login").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .anyRequest().authenticated()
+                .antMatchers("/api/session/status").permitAll()  // 인증 여부와 상관없이 모두허용
+                //.antMatchers("/error").permitAll()
+                .anyRequest().authenticated()  // 인증된 사용자는 모든 접근 허용
             .and()
             .formLogin()
                 .loginPage("/login")
@@ -77,8 +94,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+//            .and()
+            //.rememberMe();
+                //.cookieName("JSESSIONID")
+                //.tokenValiditySeconds(86400);  // 예: 1일                
     }
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
