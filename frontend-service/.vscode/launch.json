@@ -4,13 +4,13 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Next.js",
-            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/next",
-            "cwd": "${workspaceRoot}",
+            "name": "Launch Custom Server",
+            "runtimeExecutable": "node",
+            "program": "${workspaceFolder}/server.js",
+            "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
-            "skipFiles": ["<node_internals>/**"],
-            "runtimeArgs": ["dev", "-p", "9992"]
-        },
+            "skipFiles": ["<node_internals>/**"]
+        }
     ]
 }

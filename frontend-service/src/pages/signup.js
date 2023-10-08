@@ -9,7 +9,7 @@ export default function Signup() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://sevity.com:9991/register', {
+      const response = await axios.post('https://sevity.com:9991/register', {
         username,
         password,
       });

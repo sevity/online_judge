@@ -7,7 +7,7 @@ export default function Logout() {
   useEffect(() => {
     const logout = async () => {
       try {
-        const response = await axios.post('http://sevity.com:9991/logout');
+        const response = await axios.post('https://sevity.com:9991/logout');
 
         console.log('Logout successful:', response.data);
         setMessage('Logout successful!');
