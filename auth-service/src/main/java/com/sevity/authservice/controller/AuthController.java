@@ -38,14 +38,14 @@ public class AuthController {
     public User register(@RequestBody UserRegistrationDto registrationDto) {
         return authService.register(registrationDto);
     }
-
+/*
     @PostMapping("/login")
     public User login(@RequestBody UserRegistrationDto loginDto) {
         logger.info("Login attempt for username: {}", loginDto.getUsername());
         return null;
         //return authService.login(loginDto.getUsername(), loginDto.getPassword());
     }
-    
+*/    
     @GetMapping("/api/session/status")
     public ResponseEntity<?> sessionStatus(HttpServletRequest request) {
         logger.info("sevity log!");

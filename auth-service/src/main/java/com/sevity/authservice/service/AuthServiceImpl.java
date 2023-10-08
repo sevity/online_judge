@@ -3,6 +3,7 @@
 //웹에 접속한 사용자가 userid/password를 서버에 전달하면 db랑 매칭시켜서 등록하거나, 로그인검증하는 역할을 한다.
 package com.sevity.authservice.service;
 
+import com.sevity.authservice.controller.AuthController;
 import com.sevity.authservice.domain.RoleRepository;
 import com.sevity.authservice.domain.User;
 import com.sevity.authservice.domain.UserRepository;
@@ -12,6 +13,10 @@ import com.sevity.authservice.exception.UsernameAlreadyExistsException;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +26,8 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
     private RoleRepository roleRepository; // Add this line
     private PasswordEncoder passwordEncoder;
+        private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
+
 
     public AuthServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -40,14 +47,20 @@ public class AuthServiceImpl implements AuthService {
         return userRepository.save(user);
     }
 
-
+/*
     @Override
     public User login(String username, String password) {
+        logger.info("Login attempt for username: {}", username);
+
         User user = userRepository.findByUsername(username);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            // 세션 생성
+            //HttpSession session = request.getSession();
+            //session.setAttribute("user", user);
             return user;
         } else {
             return null;
         }
     }
+*/    
 }

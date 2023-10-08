@@ -6,5 +6,5 @@ import com.sevity.authservice.dto.UserRegistrationDto;
 
 public interface AuthService {
     User register(UserRegistrationDto registrationDto);
-    User login(String username, String password);
+    //User login(String username, String password);
 }
