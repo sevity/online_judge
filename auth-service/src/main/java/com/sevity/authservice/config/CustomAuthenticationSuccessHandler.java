@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 @Component
@@ -23,6 +25,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                                         Authentication authentication) throws IOException, ServletException {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
-        response.getWriter().write("Login successful. User info: " + user.toString());
+        HttpSession session = request.getSession(false);
+        //response.setHeader("Set-Cookie", "MyCookieName=YourCookieValue;Path=/; HttpOnly; SameSite=None");  // 쿠키 설정
+        response.getWriter().write("Login successful!! User info: " + user.toString() + "session:" + session);
+        
     }
 }
