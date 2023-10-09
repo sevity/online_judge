@@ -60,7 +60,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://sevity.com:9992"));  // 이 라인이 필요했고 *로 하면 브라우저에서 거부함
+        configuration.setAllowedOrigins(Arrays.asList(
+            "https://sevity.com:9992",
+            "http://sevity.com:9994"
+        ));  // 이 라인이 필요했고 *로 하면 브라우저에서 거부함
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
