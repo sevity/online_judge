@@ -6,6 +6,10 @@ import com.sevity.authservice.domain.User;
 import com.sevity.authservice.dto.UserRegistrationDto;
 import com.sevity.authservice.service.AuthService;
 
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -47,16 +51,19 @@ public class AuthController {
     }
 */    
     @GetMapping("/api/session/status")
-    public ResponseEntity<?> sessionStatus(HttpServletRequest request) {
-        logger.info("sevity log!");
+    public ResponseEntity<?> sessionStatus(HttpServletRequest request, Principal principal) {
+        //logger.info("sevity log!");
         HttpSession session = request.getSession(false);
-        //HttpSession session = request.getSession();  // 이거 하면 (같은 사이트 기준) 쿠키기록은 되지만 세션을 새로 만들어 버린다 ㅠ
-        if (session != null) {
-            // 세션이 존재하면, 세션 정보를 반환
-            return ResponseEntity.ok(session.getId());
-        } else {
-            // 세션이 존재하지 않으면, 세션 없음을 반환
-            return ResponseEntity.ok("");
-        }
+        Map<String, Object> sessionInfo = new HashMap<>();
+        if (session != null && principal != null) {
+            String username = principal.getName();
+            String sessionId = session.getId();
+            sessionInfo.put("username", username);
+            sessionInfo.put("sessionId", sessionId);
+            logger.info("sevity log! sessionInfo:" + sessionInfo);
+        } 
+        return ResponseEntity.ok(sessionInfo);
     }
+
+
 }

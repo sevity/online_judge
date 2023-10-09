@@ -28,7 +28,7 @@ export const SessionProvider = ({ children }) => {
   }, []);
 
   return (
-    <SessionContext.Provider value={{ isAuthenticated, username, fetchSessionStatus }}>
+    <SessionContext.Provider value={{ isAuthenticated, username, setUsername, fetchSessionStatus }}>
       {children}
     </SessionContext.Provider>
   );

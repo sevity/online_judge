@@ -5,14 +5,15 @@ export default function Problems() {
   const [problems, setProblems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
-    const storedUserInfo = localStorage.getItem('userInfo');
-    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    const storedUsername = localStorage.getItem('username');
+    //const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
 
-    if (storedUserInfo && storedIsLoggedIn === 'true') {
-      setIsLoggedIn(true);
-      setUserInfo(JSON.parse(storedUserInfo));
+    if (storedUsername === 'true') {
+      setUsername(storedUsername);
+      //setUserInfo(JSON.parse(storedUserInfo));
     }
 
     const fetchData = async () => {
@@ -28,7 +29,7 @@ export default function Problems() {
     fetchData();
   }, []);
 
-  if (!isLoggedIn) {
+  if (!username) {
     return (
       <div>
         로그인 필요!
