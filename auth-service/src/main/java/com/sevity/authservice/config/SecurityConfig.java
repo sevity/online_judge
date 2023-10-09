@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -25,13 +27,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
+    private final NoRedirectLogoutSuccessHandler noRedirectLogoutSuccessHandler;
+
 
     public SecurityConfig(UserDetailsService userDetailsService,
                           AuthenticationSuccessHandler authenticationSuccessHandler,
-                          AuthenticationFailureHandler authenticationFailureHandler) {
+                          AuthenticationFailureHandler authenticationFailureHandler,
+                          NoRedirectLogoutSuccessHandler noRedirectLogoutSuccessHandler) {
         this.userDetailsService = userDetailsService;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.authenticationFailureHandler = authenticationFailureHandler;
+        this.noRedirectLogoutSuccessHandler = noRedirectLogoutSuccessHandler;
     }
 
     @Bean
@@ -61,8 +67,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
-
+/*
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        SimpleUrlLogoutSuccessHandler handler = new SimpleUrlLogoutSuccessHandler();
+        handler.setDefaultTargetUrl("/login");  // 리다이렉션 URL을 null로 설정
+        return handler;
+    }
+*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -87,9 +99,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
+                .logoutSuccessHandler(noRedirectLogoutSuccessHandler)
+                //.invalidateHttpSession(true)
+                //.deleteCookies("SESSION2")
                 .permitAll()
             .and()
             .sessionManagement()
