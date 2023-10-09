@@ -25,7 +25,7 @@ export default function Login() {
       
       setSessionStatus(response.data);
       //setSessionStatus("");
-      console.log('session:', response.data);
+      console.log('session:', response);
     } catch (error) {
       console.error('Session status error:', error);
     }
@@ -81,12 +81,15 @@ const handleLogout = async () => {
     const response = await fetch('https://sevity.com:9991/logout', {
       //mode: 'no-cors',
       method: 'POST',
-      //credentials: 'include',  // 쿠키 정보를 포함하여 요청을 보냅니다.
+      credentials: 'include',  // 쿠키 정보를 포함하여 요청을 보냅니다.
     });
+    console.log(response);
 
     if (!response.ok) {
       throw new Error(`Logout failed: ${response.statusText}`);
     }
+
+    fetchSessionStatus();
 
     // Local Storage에서 정보 제거
     /*
