@@ -1,21 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { SessionContext } from '../context/SessionContext';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Problems() {
+  const { username } = useContext(SessionContext);
   const [problems, setProblems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
-  const [username, setUsername] = useState('');
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    //const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
-
-    if (storedUsername === 'true') {
-      setUsername(storedUsername);
-      //setUserInfo(JSON.parse(storedUserInfo));
-    }
-
     const fetchData = async () => {
       try {
         const response = await fetch('http://sevity.com:9993/problems');
