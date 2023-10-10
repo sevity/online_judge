@@ -32,9 +32,7 @@ export default function Problems() {
   if (!username) {
     // 서버 사이드 렌더링 시 리디렉션을 위한 컴포넌트 반환
     return (
-      <div>
-        로그인 필요!
-      </div>
+      <div className="alert alert-success mt-3">로그인 필요! </div>
     );
   }
 
