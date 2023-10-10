@@ -24,7 +24,7 @@ export default function CreateProblem() {
         };
 
         try {
-            const response = await fetch('http://sevity.com:9993/problems', {
+            const response = await fetch('https://sevity.com:9993/problems', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

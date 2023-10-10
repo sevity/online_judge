@@ -11,7 +11,7 @@ export default function Problems() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://sevity.com:9993/problems');
+        const response = await fetch('https://sevity.com:9993/problems');
         const data = await response.json();
         setProblems(data);
       } catch (error) {

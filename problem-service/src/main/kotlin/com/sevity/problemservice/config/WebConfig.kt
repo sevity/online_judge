@@ -15,7 +15,8 @@ class WebConfig {
                 registry.addMapping("/**")  // 루트부터 모든 하위경로
                     .allowedOrigins("http://sevity.com:9994", "http://localhost:9994")
                     .allowedMethods("GET", "POST", "PUT", "DELETE")
-            }
+                    .allowCredentials(true)  // 이 부분이 중요합니다.
+           }
         }
     }
 }

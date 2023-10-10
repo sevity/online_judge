@@ -8,6 +8,8 @@ const Problem = () => {
   const { id } = router.query; // URL에서 id 값을 가져옵니다.
   const [problem, setProblem] = useState(null);
   const { isAuthenticated, username } = useContext(SessionContext);
+  const [sourceCode, setSourceCode] = useState("");
+
 
   useEffect(() => {
     console.log('isAuth:' + isAuthenticated + ', username: '+username);
@@ -23,7 +25,7 @@ const Problem = () => {
     if (id) {
       const fetchData = async () => {
         try {
-          const response = await fetch(`http://sevity.com:9993/problems/${id}`);
+          const response = await fetch(`https://sevity.com:9993/problems/${id}`);
           const data = await response.json();
           console.log('data:', JSON.stringify(data, null, 2));
           setProblem(data);
@@ -35,6 +37,31 @@ const Problem = () => {
       fetchData();
     }
   }, [id]);
+
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("https://sevity.com:9993/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include',  // 쿠키를 포함하기 위한 설정
+        body: JSON.stringify({
+          problemId: id,
+          sourceCode,
+        }),
+      });
+  
+      if (response.ok) {
+        alert("제출 성공!");
+      } else {
+        alert("제출 실패!");
+      }
+    } catch (error) {
+      console.error("제출 중 오류 발생:", error);
+    }
+  };  
 
   if (!username) {
     // 서버 사이드 렌더링 시 리디렉션을 위한 컴포넌트 반환
@@ -54,6 +81,17 @@ const Problem = () => {
           <p><strong>예제 출력:</strong> {problem.exampleOutput}</p>
           <p><strong>실제 입력:</strong> {problem.realInput}</p>
           <p><strong>실제 출력:</strong> {problem.realOutput}</p>
+          <p>
+          <textarea
+            className="form-control"
+            rows="10"
+            value={sourceCode}
+            onChange={(e) => setSourceCode(e.target.value)}
+          ></textarea></p><p>
+          <button className="btn btn-primary" onClick={handleSubmit}>
+            제출
+          </button>
+          </p>
         </>
       ) : (
         <p>Loading...</p>

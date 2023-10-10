@@ -1,4 +1,6 @@
 package com.sevity.problemservice.domain
 
-class SubmissionRepository {
-}
+import com.sevity.problemservice.domain.Submission
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface SubmissionRepository : JpaRepository<Submission, Long>
