@@ -3,7 +3,7 @@ import { SessionContext } from '../context/SessionContext';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Problems() {
-  const { username } = useContext(SessionContext);
+  const { isAuthenticated, username } = useContext(SessionContext);
   const [problems, setProblems] = useState([]);
 
   useEffect(() => {
@@ -20,7 +20,17 @@ export default function Problems() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log('isAuth:' + isAuthenticated + ', username: '+username);
+    if(isAuthenticated===undefined) return;  // 최초 렌더링은 스킵
+    if (!username) {
+      // 로그인 필요 시 클라이언트에서 리디렉션
+      window.location.href = 'https://sevity.com:9992/login';
+    }
+  }, [isAuthenticated]);
+
   if (!username) {
+    // 서버 사이드 렌더링 시 리디렉션을 위한 컴포넌트 반환
     return (
       <div>
         로그인 필요!
@@ -30,6 +40,7 @@ export default function Problems() {
 
   return (
     <div className="container">
+      <div> username: {username} </div>
       <h1>문제 리스트!</h1>
       <table className="table">
         <thead>

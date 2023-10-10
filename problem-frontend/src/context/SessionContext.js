@@ -5,7 +5,7 @@ import axios from 'axios';
 export const SessionContext = createContext();
 
 export const SessionProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(undefined);
   const [username, setUsername] = useState('');
 
   const fetchSessionStatus = async () => {
