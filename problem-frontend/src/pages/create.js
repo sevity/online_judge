@@ -6,6 +6,8 @@ export default function CreateProblem() {
     const [description, setDescription] = useState("");
     const [exampleInput, setExampleInput] = useState("");
     const [exampleOutput, setExampleOutput] = useState("");
+    const [realInput, setRealInput] = useState("");
+    const [realOutput, setRealOutput] = useState("");
     const [successMessage, setSuccessMessage] = useState(null);
     const [submittedProblem, setSubmittedProblem] = useState(null);
 
@@ -16,7 +18,9 @@ export default function CreateProblem() {
             title,
             description,
             exampleInput,
-            exampleOutput
+            exampleOutput,
+            realInput,
+            realOutput
         };
 
         try {
@@ -51,6 +55,8 @@ export default function CreateProblem() {
                     <p>{submittedProblem.description}</p>
                     <p>예제 입력: {submittedProblem.exampleInput}</p>
                     <p>예제 출력: {submittedProblem.exampleOutput}</p>
+                    <p>채점용 입력: {submittedProblem.realInput}</p>
+                    <p>채점용 출력: {submittedProblem.realOutput}</p>
                 </div>
             )}
             {!successMessage && (
@@ -72,6 +78,14 @@ export default function CreateProblem() {
                         <div className="mb-3">
                             <label htmlFor="exampleOutput" className="form-label">예제 출력</label>
                             <textarea className="form-control" id="exampleOutput" rows="3" value={exampleOutput} onChange={(e) => setExampleOutput(e.target.value)}></textarea>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="realInput" className="form-label">채점용 입력</label>
+                            <textarea className="form-control" id="realInput" rows="3" value={realInput} onChange={(e) => setRealInput(e.target.value)}></textarea>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="realOutput" className="form-label">채점용 출력</label>
+                            <textarea className="form-control" id="realOutput" rows="3" value={realOutput} onChange={(e) => setRealOutput(e.target.value)}></textarea>
                         </div>
                         <button type="submit" className="btn btn-primary">제출</button>
                     </form>

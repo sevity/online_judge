@@ -18,5 +18,11 @@ data class Problem(
     val exampleInput: String = "",
 
     @Column(name = "example_output", nullable = false)
-    val exampleOutput: String = ""
+    val exampleOutput: String = "",
+
+    @Column(name = "real_input", nullable = true)
+    var realInput: String = "",
+
+    @Column(name = "real_output", nullable = true)
+    var realOutput: String = ""
 )
