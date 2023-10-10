@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { SessionContext } from '../context/SessionContext';
 import 'bootstrap/dist/css/bootstrap.css';
+import Link from 'next/link';
+
 
 export default function Problems() {
   const { isAuthenticated, username } = useContext(SessionContext);
@@ -38,7 +40,7 @@ export default function Problems() {
 
   return (
     <div className="container">
-      <div> username: {username} </div>
+      <div className="alert alert-success mt-3">username: {username} </div>
       <h1>문제 리스트!</h1>
       <table className="table">
         <thead>
@@ -51,8 +53,8 @@ export default function Problems() {
         <tbody>
           {problems.map((problem) => (
             <tr key={problem.id}>
-              <td>{problem.id}</td>
-              <td>{problem.title}</td>
+              <td><Link href={`/problem/${problem.id}`}>{problem.id}</Link></td>
+              <td><Link href={`/problem/${problem.id}`}>{problem.title}</Link></td>
               <td>{problem.description}</td>
             </tr>
           ))}
