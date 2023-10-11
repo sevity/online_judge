@@ -90,14 +90,70 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- gRPC -->
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.12.4</version>  <!--이 버전을 아래쪽 ptoroc버전과 맞춰야 함-->
+		</dependency>	
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty-shaded</artifactId>
+			<version>1.41.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-protobuf</artifactId>
+			<version>1.41.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-stub</artifactId>
+			<version>1.41.0</version>
+		</dependency>		
 	</dependencies>
 
 	<build>
+	    <extensions>
+			<extension>
+				<!--Maven 빌드 과정 중에 운영 체제(OS)에 관한 정보를 제공하고 설정하는 데 도움을 줍니다. -->
+				<groupId>kr.motd.maven</groupId>
+				<artifactId>os-maven-plugin</artifactId>
+				<version>1.7.0</version>
+			</extension>
+    	</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+
+	  <plugin>
+            <groupId>org.xolstice.maven.plugins</groupId>
+            <artifactId>protobuf-maven-plugin</artifactId>
+            <version>0.6.1</version>
+            <configuration>
+                <protocArtifact>com.google.protobuf:protoc:3.12.4:exe:${os.detected.classifier}</protocArtifact>
+                <pluginId>grpc-java</pluginId>
+                <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.51.0:exe:${os.detected.classifier}</pluginArtifact>
+                <outputBaseDirectory>src/main/java/</outputBaseDirectory>
+                <outputDirectory>src/main/java/</outputDirectory>
+                <clearOutputDirectory>false</clearOutputDirectory>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>compile</goal>
+                        <goal>compile-custom</goal>
+                    </goals>
+                    <configuration>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+		
 		</plugins>
 	</build>
 	<repositories>

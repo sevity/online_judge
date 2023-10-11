@@ -1,0 +1,17 @@
+// Version: 1.0.0
+
+syntax = "proto3";
+
+package com.sevity.authservice.grpc;
+
+service SesseionService {
+    rpc GetUserId (SessionRequest) returns (UserResponse) {};
+}
+
+message SessionRequest {
+    string sessionId = 1;
+}
+
+message UserResponse {
+    int32 userId = 1;
+}
