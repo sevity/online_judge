@@ -5,14 +5,14 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.51.0)",
+    value = "by gRPC proto compiler (version 1.58.0)",
     comments = "Source: session_service.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class SesseionServiceGrpc {
 
   private SesseionServiceGrpc() {}
 
-  public static final String SERVICE_NAME = "com.sevity.authservice.grpc.SesseionService";
+  public static final java.lang.String SERVICE_NAME = "com.sevity.authservice.grpc.SesseionService";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.sevity.authservice.grpc.SessionService.SessionRequest,
@@ -92,31 +92,32 @@ public final class SesseionServiceGrpc {
 
   /**
    */
-  public static abstract class SesseionServiceImplBase implements io.grpc.BindableService {
+  public interface AsyncService {
 
     /**
      */
-    public void getUserId(com.sevity.authservice.grpc.SessionService.SessionRequest request,
+    default void getUserId(com.sevity.authservice.grpc.SessionService.SessionRequest request,
         io.grpc.stub.StreamObserver<com.sevity.authservice.grpc.SessionService.UserResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUserIdMethod(), responseObserver);
-    }
-
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getGetUserIdMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                com.sevity.authservice.grpc.SessionService.SessionRequest,
-                com.sevity.authservice.grpc.SessionService.UserResponse>(
-                  this, METHODID_GET_USER_ID)))
-          .build();
     }
   }
 
   /**
+   * Base class for the server implementation of the service SesseionService.
    */
-  public static final class SesseionServiceStub extends io.grpc.stub.AbstractAsyncStub<SesseionServiceStub> {
+  public static abstract class SesseionServiceImplBase
+      implements io.grpc.BindableService, AsyncService {
+
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+      return SesseionServiceGrpc.bindService(this);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do asynchronous rpc calls to service SesseionService.
+   */
+  public static final class SesseionServiceStub
+      extends io.grpc.stub.AbstractAsyncStub<SesseionServiceStub> {
     private SesseionServiceStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -138,8 +139,10 @@ public final class SesseionServiceGrpc {
   }
 
   /**
+   * A stub to allow clients to do synchronous rpc calls to service SesseionService.
    */
-  public static final class SesseionServiceBlockingStub extends io.grpc.stub.AbstractBlockingStub<SesseionServiceBlockingStub> {
+  public static final class SesseionServiceBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<SesseionServiceBlockingStub> {
     private SesseionServiceBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -160,8 +163,10 @@ public final class SesseionServiceGrpc {
   }
 
   /**
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service SesseionService.
    */
-  public static final class SesseionServiceFutureStub extends io.grpc.stub.AbstractFutureStub<SesseionServiceFutureStub> {
+  public static final class SesseionServiceFutureStub
+      extends io.grpc.stub.AbstractFutureStub<SesseionServiceFutureStub> {
     private SesseionServiceFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -189,10 +194,10 @@ public final class SesseionServiceGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final SesseionServiceImplBase serviceImpl;
+    private final AsyncService serviceImpl;
     private final int methodId;
 
-    MethodHandlers(SesseionServiceImplBase serviceImpl, int methodId) {
+    MethodHandlers(AsyncService serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -221,6 +226,18 @@ public final class SesseionServiceGrpc {
     }
   }
 
+  public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
+    return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+        .addMethod(
+          getGetUserIdMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.sevity.authservice.grpc.SessionService.SessionRequest,
+              com.sevity.authservice.grpc.SessionService.UserResponse>(
+                service, METHODID_GET_USER_ID)))
+        .build();
+  }
+
   private static abstract class SesseionServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
     SesseionServiceBaseDescriptorSupplier() {}
@@ -244,9 +261,9 @@ public final class SesseionServiceGrpc {
   private static final class SesseionServiceMethodDescriptorSupplier
       extends SesseionServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
-    private final String methodName;
+    private final java.lang.String methodName;
 
-    SesseionServiceMethodDescriptorSupplier(String methodName) {
+    SesseionServiceMethodDescriptorSupplier(java.lang.String methodName) {
       this.methodName = methodName;
     }
 

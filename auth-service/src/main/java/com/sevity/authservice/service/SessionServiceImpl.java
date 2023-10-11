@@ -18,6 +18,11 @@ import io.lettuce.core.api.sync.RedisCommands;
 
 @Service
 public class SessionServiceImpl extends SesseionServiceGrpc.SesseionServiceImplBase {
+    public SessionServiceImpl() {
+        // 기본 생성자
+        this(null);  // 다른 생성자를 호출
+
+    }
 
     @Autowired
     private UserRepository userRepository;
