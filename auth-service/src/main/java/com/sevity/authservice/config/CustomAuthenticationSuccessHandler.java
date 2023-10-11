@@ -26,8 +26,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         HttpSession session = request.getSession(false);
-        //response.setHeader("Set-Cookie", "MyCookieName=YourCookieValue;Path=/; HttpOnly; SameSite=None");  // 쿠키 설정
+        request.getSession().setAttribute("userId", user.getId());  // gRPC를 위해 저장해둠
+        //response.addHeader("Set-Cookie", "MyCookieName=YourCookieValue;Path=/; Secure; HttpOnly; SameSite=None");  //되는거 확인함
         response.getWriter().write("Login successful!! User info: " + user.toString() + "session:" + session);
-        
     }
 }
