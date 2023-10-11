@@ -16,6 +16,9 @@ data class Submission(
     @Column(nullable = false)
     val code: String,
 
+    @Column(nullable = true)
+    val result: String? = null,
+
     @Column(nullable = false)
     val status: String
     // 다른 필요한 필드
