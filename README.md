@@ -14,6 +14,12 @@ online_judge/auth-service/docker_run.sh 9991
 
 
 ## 2. frontend-service
+url: http://localhost:9992
+
+### end points
+- /login
+- /logout
+- /sugnup
 
 # related environment
 ## airflow
