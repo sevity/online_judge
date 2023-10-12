@@ -11,9 +11,9 @@
     <groupId>com.sevity</groupId>
     <artifactId>problem-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>problem-service</name>
+        <name>problem-service</name>
     <description>problem-service</description>
-    <properties>
+        <properties>
         <java.version>17</java.version>
         <kotlin.version>1.8.22</kotlin.version>
     </properties>
@@ -102,6 +102,30 @@
             <artifactId>grpc-kotlin-stub</artifactId>
             <version>1.3.0</version> <!-- Replace with your version -->
         </dependency>
+        <!-- GraphQL Kotlin Spring Server. basic artifact-->
+        <dependency>
+            <groupId>com.expediagroup</groupId>
+            <artifactId>graphql-kotlin-spring-server</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+        <!-- GraphQL Kotlin Schema Generator. Kotlin 코드에서 GraphQL 스키마를 memoty에 자동으로 생성-->
+        <dependency>
+            <groupId>com.expediagroup</groupId>
+            <artifactId>graphql-kotlin-schema-generator</artifactId>
+            <version>7.0.1</version>
+        </dependency>
+        <!-- Optional: GraphQL Kotlin Federation (if using federation) -->
+        <dependency>
+            <groupId>com.expediagroup</groupId>
+            <artifactId>graphql-kotlin-federation</artifactId>
+            <version>5.4.1</version>
+        </dependency>
+        <!-- GraphQL Kotlin Maven Plugin for automatic schema generation. 빌드 프로세스 중에 스키마를 파일로 출력 -->
+        <dependency>
+            <groupId>com.expediagroup</groupId>
+            <artifactId>graphql-kotlin-maven-plugin</artifactId>
+            <version>7.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -177,6 +201,27 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- GraphQL Kotlin Maven Plugin Configuration -->
+            <plugin>
+                <groupId>com.expediagroup</groupId>
+                <artifactId>graphql-kotlin-maven-plugin</artifactId><!--GraphQL 스키마 auto generation -->
+                <version>7.0.1</version>  <!-- 버전은 최신 버전으로 확인해주세요 -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-sdl</goal>
+                        </goals>
+                        <configuration>
+                            <packages>
+                                <!-- can be omitted but for the performance of scan.. -->
+                                <package>com.sevity</package>  <!-- GraphQL 유형을 포함할 수 있는 패키지 목록 -->
+                            </packages>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
