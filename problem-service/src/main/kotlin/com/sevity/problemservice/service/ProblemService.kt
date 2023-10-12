@@ -9,8 +9,8 @@ class ProblemService(private val problemRepository: ProblemRepository) {
 
     fun getAllProblems(): List<Problem> = problemRepository.findAll()
     fun createProblem(problem: Problem): Problem = problemRepository.save(problem)
-    fun getProblem(id: Long): Problem = problemRepository.findById(id).orElseThrow { NoSuchElementException("Problem not found") }
-    fun updateProblem(id: Long, problem: Problem): Problem {
+    fun getProblem(id: Int): Problem = problemRepository.findById(id).orElseThrow { NoSuchElementException("Problem not found") }
+    fun updateProblem(id: Int, problem: Problem): Problem {
         val existingProblem = problemRepository.findById(id).orElseThrow { NoSuchElementException("Problem not found") }
         val updatedProblem = existingProblem.copy(
             title = problem.title,
@@ -23,7 +23,7 @@ class ProblemService(private val problemRepository: ProblemRepository) {
         return problemRepository.save(updatedProblem)
     }
 
-    fun deleteProblem(id: Long) {
+    fun deleteProblem(id: Int) {
         val existingProblem = problemRepository.findById(id).orElseThrow { NoSuchElementException("Problem not found") }
         problemRepository.delete(existingProblem)
     }

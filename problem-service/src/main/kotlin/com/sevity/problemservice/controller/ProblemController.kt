@@ -14,17 +14,17 @@ class ProblemController(private val problemService: ProblemService) {
     fun getAllProblems() = problemService.getAllProblems()
 
     @GetMapping("/{id}")
-    fun getProblem(@PathVariable id: Long): Problem = problemService.getProblem(id)
+    fun getProblem(@PathVariable id: Int): Problem = problemService.getProblem(id)
 
 
     @PostMapping
     fun createProblem(@RequestBody problem: Problem): Problem = problemService.createProblem(problem)
 
     @PutMapping("/{id}")
-    fun updateProblem(@PathVariable id: Long, @RequestBody problem: Problem): Problem = problemService.updateProblem(id, problem)
+    fun updateProblem(@PathVariable id: Int, @RequestBody problem: Problem): Problem = problemService.updateProblem(id, problem)
 
     @DeleteMapping("/{id}")
-    fun deleteProblem(@PathVariable id: Long): ResponseEntity<Void> {
+    fun deleteProblem(@PathVariable id: Int): ResponseEntity<Void> {
         problemService.deleteProblem(id)
         return ResponseEntity<Void>(HttpStatus.NO_CONTENT)
     }

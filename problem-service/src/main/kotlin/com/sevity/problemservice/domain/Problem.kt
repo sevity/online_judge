@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "problems")
 data class Problem(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Int = 0,
 
     @Column(nullable = false)
     val title: String = "",
