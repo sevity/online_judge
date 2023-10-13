@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 @Service
 class SubmissionService(private val submissionRepository: SubmissionRepository) {
 
-    fun submitProblem(userId: Long, problemId: Long, code: String): Submission {
+    fun submitProblem(userId: Long, problemId: Int, code: String): Submission {
         val submission = Submission(
             userId = userId,
             problemId = problemId,
@@ -17,5 +17,8 @@ class SubmissionService(private val submissionRepository: SubmissionRepository) 
         return submissionRepository.save(submission)
     }
 
+    fun getSubmissionCountByProblem(problemId: Int): Int {
+        return submissionRepository.countByProblemId(problemId)
+    }
     // 다른 필요한 메서드
 }

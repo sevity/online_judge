@@ -1,3 +1,4 @@
+/*
 // src/main/kotlin/com/sevity/problemservice/graphql/ProblemQueryResolver.kt
 
 package com.sevity.problemservice.graphql
@@ -19,3 +20,5 @@ class ProblemQueryResolver(
         return problemRepository.findAll().toList()
     }
 }
+
+*/

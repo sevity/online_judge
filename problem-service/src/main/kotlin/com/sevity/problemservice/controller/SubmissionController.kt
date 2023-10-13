@@ -12,6 +12,9 @@ import com.sevity.authservice.grpc.SessionService.SessionRequest
 import org.springframework.web.bind.annotation.RequestBody
 import com.sevity.problemservice.service.SubmissionService
 
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 
 @RestController
 class SubmissionController(private val submissionService: SubmissionService) {
@@ -20,7 +23,7 @@ class SubmissionController(private val submissionService: SubmissionService) {
     private lateinit var sessionServiceStub: SesseionServiceGrpc.SesseionServiceBlockingStub
 
     data class SubmissionRequest(
-        val problemId: Long,
+        val problemId: Int,
         val sourceCode: String
     )
 
@@ -48,5 +51,10 @@ class SubmissionController(private val submissionService: SubmissionService) {
 
         submissionService.submitProblem(userId, problemId, sourceCode)
         return ResponseEntity("Code submitted", HttpStatus.OK)
+    }
+
+    @QueryMapping
+    fun submissionCountByProblem(@Argument problemId: Int): Int {
+        return submissionService.getSubmissionCountByProblem(problemId)
     }
 }

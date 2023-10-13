@@ -5,10 +5,10 @@ import javax.persistence.*
 @Table(name = "submissions")
 data class Submission(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Int = 0,
 
     @Column(name = "problem_id", nullable = false)
-    val problemId: Long,
+    val problemId: Int,
 
     @Column(name = "user_id", nullable = false)
     val userId: Long,
